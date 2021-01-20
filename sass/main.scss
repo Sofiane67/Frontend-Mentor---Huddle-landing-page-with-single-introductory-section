@@ -1,0 +1,224 @@
+:root{
+    --color-backgroud: hsl(257, 40%, 49%);
+    --color-light-hover: hsl(300, 69%, 71%);
+    --color-dark-hover: hsl(300, 69%, 65%);
+}
+
+$breakpoints:(
+    bp-large: 68.75em, //1100px
+    bp-medium: 53.75em, //860px
+    bp-small: 46.875em //750px
+);
+
+@mixin bp-large{
+    @media screen and (max-width: map-get($breakpoints, bp-large)){
+        @content;
+    }
+}
+
+@mixin bp-medium{
+    @media screen and (max-width: map-get($breakpoints, bp-medium)){
+        @content;
+    }
+}
+
+@mixin bp-small{
+    @media screen and (max-width: map-get($breakpoints, bp-small)){
+        @content;
+    }
+}
+
+html{
+    font-size: 62.5%;
+    box-sizing: border-box;
+
+    @include bp-large{
+        font-size: 50%;
+    }
+
+    @include bp-medium{
+        font-size: 43.75%;
+    }
+}
+
+*,
+*::before,
+*::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+body{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.6rem;
+    color: #fff;
+    height: 100vh;
+    background-image:  url(../images/bg-desktop.svg);
+    background-color: var(--color-backgroud);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    background-attachment: fixed;
+    display: grid;
+    justify-content: center;
+
+    @include bp-medium{
+        font-size: 2rem
+    }
+
+    @include bp-small{
+        background-image:  url(../images/bg-mobile.svg);
+         background-size: contain;
+    }
+}
+
+.container{
+    height: 80rem;
+
+    display: grid;
+    grid-template-rows: minmax(min-content, 10rem) 5rem repeat(4, minmax(min-content, 10rem)) 5rem minmax(min-content, 10rem) ;
+    grid-template-columns: repeat(9, minmax(min-content, 9.7rem));
+    grid-column-gap: 5rem;
+    align-items: center;
+    margin: 0 2rem;
+
+    @include bp-small(){
+        height: 100vh;
+        grid-template-rows: minmax(10rem, min-content) 50vw min-content 1fr ;
+        grid-column-gap: 2rem;
+    }
+}
+
+.header{
+    grid-column: 1/-1;
+    grid-row: 1 / 2;
+    padding: 5rem 0;
+
+    &__logo{
+        width: 20rem;
+    }
+
+    @include bp-small(){
+        grid-column: 2 / -2;
+        
+        margin: 0;
+    }
+}
+
+.mockup{
+    grid-row: 3 / 7;
+    grid-column: 1 / 7;
+    align-self: start;
+
+    @include bp-small(){
+        grid-row: 2 / 3;
+        grid-column: 2 / -2;
+        height: 100%;
+        margin-top: 5rem;
+    }
+
+    &__image{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+.text-content{
+    grid-column: 7 / -1;
+    grid-row: 3 / 7;
+    align-self: start;
+    padding-top: 6rem;
+
+     @include bp-small(){
+        grid-row: 3 / 4;
+        grid-column: 2 / -2;
+        margin: 10rem 0 ;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__heading{
+        font-family: 'Poppins', sans-serif;
+        font-size: 3.5rem;
+        line-height: 6rem;
+
+        padding-bottom: 4rem;
+
+        @include bp-small(){
+            text-align: center;
+        }
+    }
+
+    &__description{
+        padding-bottom: 3rem;
+
+        @include bp-small(){
+            text-align: center;
+            // font-size: 3rem;
+        }
+    }
+}
+
+.btn{
+    text-decoration: none;
+    color: var(--color-backgroud);
+    display: inline-block;
+    background-color: #fff;
+    padding: 1rem 4rem;
+    border-radius: 5rem;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.4);
+
+    &:hover{
+        color: #fff;
+        background-color: var(--color-light-hover);
+        transition: all .2s;
+    }
+}
+
+.footer{
+    grid-column: 1 / -1;
+    grid-row: 8 / -1;
+
+    display: flex;
+    justify-content: flex-end;
+
+    @include bp-small(){
+        grid-row: 4 / -1;
+        grid-column: 2 / -2;
+        align-self: end;
+        justify-content: center;
+        padding-bottom: 10rem;
+    }
+}
+
+.social-media{
+    padding: 1rem;
+    border: solid 2px #fff;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover{
+        border-color:  var(--color-dark-hover);
+        transition: all .2s;
+    }
+
+    &:hover &__icon{
+        fill:  var(--color-dark-hover);
+        transition: all .2s;
+    }
+
+    &:not(:last-child){
+        margin-right: 1.5rem;
+    }
+    &__icon{
+        width: 2.5rem;
+        height: 2.5rem;
+        fill: #fff;
+    }
+}
